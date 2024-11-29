@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+
+<body>
+    <div>
+        <h1>To Do List</h1>
+
+        {% if message %}
+            <p class="{% if 'successfully' in message %}success{% else %}error{% endif %}">{{ message }}</p>
+        {% endif %}
+
+        <form action="/add" method="post">
+            <div>
+                <label>Todo task</label>
+                <input type="text" name="task" placeholder="Enter a Task">
+                <button type="submit">Add a Task</button>
+            </div>
+        </form>
+
+        <hr>
+
+        {% for todo in todo_list %}
+        <div>
+            <p>{{ todo.id }} : {{ todo.task }} : 
+                {% if todo.complete %}
+                    Complete
+                {% else %}
+                    Incomplete
+                {% endif %}
+            </p>
+            <p>
+                Created on: {{ todo.date_created.strftime("%Y-%m-%d %H:%M:%S") }}
+            </p>
+            <p>
+                <a href="/update/{{ todo.id }}">
+                    {% if todo.complete %}
+                        Mark as Incomplete
+                    {% else %}
+                        Mark as Complete
+                    {% endif %}
+                </a>
+            </p>
+            <p><a href="/edit/{{ todo.id }}">Edit Task</a></p> <!-- Add Edit link here -->
+            <p><a href="/delete/{{ todo.id }}">Delete Task?</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

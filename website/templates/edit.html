@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div>
+        <h1>Edit Task</h1>
+        
+        {% if message %}
+            <p class="{% if 'successfully' in message %}success{% else %}error{% endif %}">{{ message }}</p>
+        {% endif %}
+
+        <form action="/edit/{{ todo.id }}" method="post">
+            <div>
+                <label>Task</label>
+                <input type="text" name="task" value="{{ todo.task }}" placeholder="Edit your task">
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+
+        <p><a href="/">Cancel</a></p>
+    </div>
+</body>
+
+</html>
